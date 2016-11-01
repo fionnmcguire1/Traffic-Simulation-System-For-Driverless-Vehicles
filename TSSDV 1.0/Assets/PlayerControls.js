@@ -1,92 +1,83 @@
 ﻿#pragma strict
 
+/*
+Prototype: 1
+Author: Fionn Mcguire
+Date: 01/11/2016
+*/
+
+//These variables are for user input
 var moveLeft : KeyCode;
 var moveRight : KeyCode;
 var moveUp : KeyCode;
 var moveDown : KeyCode;
-//var target : Transform;
-//var timeSinceStarted : float = Time.deltaTime;
 
+//This controled the speed of the car when responding to user input which changed veolocity by this much
 var speed : float = 10;
+//Checker exits the while loop in the travel function which finishes the function.
 var checker : boolean = true;
-//var coOrd;
+//Array of nodes i.e a route
+var node_list= new Array();
+node_list = [8.5,-4.37,8.5,3.9,-7.9,3.9,-7.9,-4.37];
 
+//This function executes everything at startup immediately
 function Start () {
-
-//CallingAllFunctions();
+Travel(node_list,-7.9,-4.37);
 }
-
+//When the user inputs anything the code to make a change goes in here
 function Update () {
- //if(GetComponent.<Rigidbody2D>().position.y == 8.5){}
- /*if(GetComponent.<Rigidbody2D>().position.x == -7.9 ||)
- {
- 	GetComponent.<Rigidbody2D>().velocity.x = 0;
- }*/
 
- if (Input.GetKey(moveLeft))
+//If i want to run the code again i just hight the right arrow key
+ if (Input.GetKey(moveRight))
  {
- GetComponent.<Rigidbody2D>().velocity.x = -speed;
-
- }
- else if (Input.GetKey(moveRight))
- {
-  /*Move (8.5,-4.37);
-  Move (8.5,-3.9);
-  Move (-7.9,3.9);
-  Move (7.9,4.37);*/
-  CallingAllFunctions ();
- 
- }
- else if (Input.GetKey(moveUp))
- {
-  GetComponent.<Rigidbody2D>().velocity.y = speed;
-  //transform.Rotate (Vector3.forward *30);
-
- }
- else if (Input.GetKey(moveDown))
- {
-  GetComponent.<Rigidbody2D>().velocity.y = -speed;
-  //transform.Rotate (Vector3.back*30);
-
-
+  Travel(node_list,-7.9,-4.37);
  }
  else 
  {
+ 	//This ensures the sprite doesn't move when nothing happens
    GetComponent.<Rigidbody2D>().velocity.x = 0;
    GetComponent.<Rigidbody2D>().velocity.y = 0;
-  
  }
 }
 
- function CallingAllFunctions () {
- 	StartCoroutine(Move(8.5,-4.37));
- 	yield WaitForSeconds(4);
-    StartCoroutine(Move (8.5,3.9));
-    yield WaitForSeconds(4);
-    StartCoroutine(Move (-7.9,3.9));
-    yield WaitForSeconds(4);
-    StartCoroutine(Move (-7.9,-4.37));
+/*The travel function is basically a route executer
+The function accepts in an array of nodes, a destination x and a destination y
+The node array should be made up of even indexs 0 2 4 6 8 etc which are X co-ordinates
+and odd indexs 1 3 5 7 9 which make up the Y co-ordinates.
+The function sets the checker to true, timeSinceStarted, StartingPosition to 0.
+timeSinceStarted is used to measure how long it has been since the beginning of the travel between 2 nodes.
+This is a fraction of a second. I used the Lerp function to travel from point A (startingPosition) to point B (destination Node)
+the timeSinceStarted returns a higher decimal every loop of the array. So the object will first go 10% of the entire journey
+then 20% of the entire journey, 30, 40, 50% until it reaches the node. Every time the object moves closer, the while loop checks
+if the object is at it's final destination, or if the object is at it's node destination. If it's at it's node destination then 
+the i variabe is incremented to get the next set of co-ordinates to make the new destination node and go all over again. 
+If the current position of the object is the destination x,y then checker is set to false and the loop exists as does the 
+function. The yield at the bottom of the function is just to make it seem asthoug the car is constantly moving as opposed 
+to jumping from one posiition to the next
+*/
 
-
- }
-
-function Move (x,y) {
-    checker = true;
+ function Travel (node_list : Array, destinationX, destinationY) 
+ {
+	checker = true;
     var timeSinceStarted : float = 0f;
     var startingPosition = transform.position;
+    var i =0;
+
     while (checker === true)
     {
 
         timeSinceStarted = timeSinceStarted + Time.deltaTime*0.5;
-        transform.position = Vector3.Lerp(startingPosition, Vector2(x,y), timeSinceStarted);
+        transform.position = Vector3.Lerp(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
 
-        // If the object has arrived, stop the coroutine
-        if (transform.position ==  Vector2(x,y))
+        if (transform.position ==  Vector2(destinationX,destinationY))
         {
             checker = false;
         }
-
-        // Otherwise, continue next frame
+        else if(transform.position == Vector2(node_list[i],node_list[i+1])){
+        startingPosition = transform.position;
+        timeSinceStarted = 0f;
+        i = i+2;
+        }
         yield WaitForSeconds (0.01);
     }
  }

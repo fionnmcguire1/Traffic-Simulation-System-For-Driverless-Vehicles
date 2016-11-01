@@ -2,13 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerControls.js">
     <Files>
-      <File FileName="Assets/PlayerControls.js" Line="16" Column="5" />
+      <File FileName="Assets/PlayerControls.js" Line="67" Column="27" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
