@@ -22,6 +22,7 @@ node_list = [8.5,-4.37,8.5,3.9,-7.9,3.9,-7.9,-4.37];
 
 //This function executes everything at startup immediately
 function Start () {
+//rb = GetComponent.<Rigidbody>();
 Travel(node_list,-7.9,-4.37);
 }
 //When the user inputs anything the code to make a change goes in here
@@ -66,45 +67,33 @@ to jumping from one posiition to the next.
     while (checker === true)
     {
 
-        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
-        transform.position = Vector3.MoveTowards(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
 
-        /*var angle = (Mathf.Sin(Time.time * speed) + 1.0) / 2.0 * 90.0;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    	//if (OnCollisionEnter(gameObject) == false)
+    	//{
+	        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
+	        transform.position = Vector3.MoveTowards(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
+	        transform.right = Vector2(node_list[i],node_list[i+1]) - transform.position;
 
- 		var neededRotation = Quaternion.LookRotation(Vector3.forward, transform.position - Vector2(node_list[i],node_list[i+1]));
-        transform.rotation = Quaternion.Slerp(transform.rotation,neededRotation, timeSinceStarted);*/
-        //transform.LookAt(Vector3(node_list[i],node_list[i+1],1));
-
-
-        if (transform.position ==  Vector2(destinationX,destinationY))
-        {
-            checker = false;
-        }
-        else if(transform.position == Vector2(node_list[i],node_list[i+1])){
-        startingPosition = transform.position;
-        timeSinceStarted = 0f;
-
-        i = i+2;
-        }
-        yield WaitForSeconds (0.01);
+	        if (transform.position ==  Vector2(destinationX,destinationY))
+	        {
+	            checker = false;
+	        }
+	        else if(transform.position == Vector2(node_list[i],node_list[i+1]))
+	        {
+	        	startingPosition = transform.position;
+	        	timeSinceStarted = 0f;
+	        	i = i+2;
+	        }
+	        yield WaitForSeconds (0.01);
+        /*}
+        else{
+        	checker = false;
+        }*/
     }
  }
+ //if the car gameobject is collided with another the collidER (not the victim) will be destroyed
+ function OnCollisionEnter2D( collider : Collision2D )
+ {
+     Destroy(collider.gameObject);
+ }
 
- /*    while (checker === true)
-    {
-
-        timeSinceStarted = timeSinceStarted + Time.deltaTime*0.5;
-        transform.position = Vector3.Lerp(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
-
-        if (transform.position ==  Vector2(destinationX,destinationY))
-        {
-            checker = false;
-        }
-        else if(transform.position == Vector2(node_list[i],node_list[i+1])){
-        startingPosition = transform.position;
-        timeSinceStarted = 0f;
-        i = i+2;
-        }
-        yield WaitForSeconds (0.01);
-    }*/

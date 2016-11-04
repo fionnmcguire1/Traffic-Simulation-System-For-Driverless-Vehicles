@@ -24,7 +24,7 @@
       for(var i = 1 ; i < 3 ; i++)
       {  
       	Cars[i] = Instantiate(Cars[0], new Vector3(0, -4.37, 0), Quaternion.identity);
-      	Cars[i].GetComponent<SpriteRenderer>().sprite = (Sprite)AllSprites[i];
+      	//Cars[i].GetComponent<SpriteRenderer>().sprite = (Sprite)AllSprites[i];
       }
      
  }
