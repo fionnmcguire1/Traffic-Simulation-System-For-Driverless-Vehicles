@@ -13,19 +13,157 @@ Y Values 2.35,0,2.63
 */
 
 //These variables are for user input
-var moveLeft : KeyCode;
+//var moveLeft : KeyCode;
 var moveRight : KeyCode;
-var moveUp : KeyCode;
-var moveDown : KeyCode;
-
+//var moveUp : KeyCode;
+//var moveDown : KeyCode;
+//var game_setup: GameSetup;
 //This controled the speed of the car when responding to user input which changed veolocity by this much
-var speed : float = 3; //This would represent 30km/h however this must be tinkered with as it's still too fast.
+public var speed : float = 0.2; //This would represent 30km/h however this must be tinkered with as it's still too fast.
 //Checker exits the while loop in the travel function which finishes the function.
 var checker : boolean = true;
 //Array of nodes i.e a route
 var node_list= new Array();
+var node_x_list= new Array();
+var node_y_list= new Array();
+
 //node_list = [8.5,-4.37,8.5,3.9,-7.9,3.9,-7.9,-4.37];
-node_list = [-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0];
+
+
+node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
+node_y_list = [2.35,0,-2.63];
+//Debug.Log(node_x_list);
+//Debug.Log(node_y_list);
+
+var destx = 0;
+destx = node_x_list[Random.Range(0,19)]; 
+var desty = 0;
+desty = node_y_list[Random.Range(0,2)];
+if(destx < 0)
+{
+	destx = destx*-1;
+}
+if(desty < 0)
+{
+	desty = desty*-1;
+}
+
+//Debug.Log(transform.name)
+Debug.Log("Destx: "+destx);
+Debug.Log("Desty: "+desty);
+Debug.Log("Position: "+transform.position.x);
+var i = 0;
+var array_postitionx = -50;
+var array_destinationx = -50;
+var array_postitiony = -50;
+var array_destinationy = -50;
+var x_or_y = Random.Range(1,2);
+if(x_or_y < 0)
+{
+	x_or_y = x_or_y*-1;
+}
+//x_or_y = 1.8;
+//if(x_or_y > 1.5)
+//{
+
+	while(array_postitionx == -50 || array_destinationx == -50)
+	{
+		//handles x dest & pos
+		if(node_x_list[i] == transform.position.x)
+		{
+			array_postitionx = i;
+		}
+		if(node_x_list[i] == node_x_list[destx])
+		{
+			array_destinationx = i;
+		}
+		i = i+1;
+		if(i > node_x_list.length)
+		{
+			transform.position.x = node_x_list[3];
+			array_postitionx = 3;	
+		}
+
+	}
+	while(array_destinationx != array_postitionx)
+	{
+
+	//Debug.Log(node_list);
+		i = 0;
+		if(array_destinationx < array_postitionx)
+		{
+			node_list.push(node_x_list[array_postitionx],transform.position.y);
+			array_postitionx = array_postitionx-1;
+			i = i+2;
+		}
+		else if(array_destinationx > array_postitionx)
+		{
+			node_list.push(node_x_list[array_postitionx],transform.position.y);
+			array_postitionx = array_postitionx +1;
+			i = i+2;
+		}
+	}
+
+
+//}
+//else
+//{
+i = 0;
+	while(array_postitiony == -50 || array_destinationy == -50)
+	{
+	//handles y dest & pos
+		if(node_y_list[i] == transform.position.y)
+		{
+			array_postitiony = i;
+		}
+		if(node_y_list[i] == node_y_list[desty])
+		{
+			array_destinationy = i;
+		}
+		i = i+1;
+		if(i > node_y_list.length)
+		{
+			transform.position.y = node_y_list[3];
+			array_postitiony = 1;	
+		}
+	}
+	//Debug.Log(array_destination);
+	//Debug.Log(array_postitionx);
+
+
+	while(array_destinationy != array_postitiony)
+	{
+
+	//Debug.Log(node_list);
+		i = 0;
+		if(array_destinationy < array_postitiony)
+		{
+			node_list.push(transform.position.x,node_y_list[array_postitiony]);
+			array_postitiony = array_postitiony-1;
+			i = i+2;
+		}
+		else if(array_destinationy > array_postitiony)
+		{
+			node_list.push(transform.position.x,node_y_list[array_postitiony]);
+			array_postitiony = array_postitiony +1;
+			i = i+2;
+		}
+	}
+
+
+
+Debug.Log("NodeList: "+node_list);
+//node_list = [-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0];
+//Debug.Log(node_list);
+
+//var node_y_list = GetComponent(game_setup).node_y_list;
+//var node_x_list = GetComponent(GameSetup).node_x_list;
+//var node_y_list = game_setup.node_y_list;
+//var node_y_list = GameObject.Find("GUI_Main").GetComponent("ScriptName").thumbnailTextures[0]
+
+//node_list.push
+//Debug.Log(node_x_list);
+
 //This function executes everything at startup immediately
 function Start () {
 //rb = GetComponent.<Rigidbody>();
@@ -76,6 +214,7 @@ to jumping from one posiition to the next.
 
     	//if (OnCollisionEnter(gameObject) == false)
     	//{
+    	speed = 1;
 	        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
 	        transform.position = Vector3.MoveTowards(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
 	        transform.right = Vector2(node_list[i],node_list[i+1]) - transform.position;
