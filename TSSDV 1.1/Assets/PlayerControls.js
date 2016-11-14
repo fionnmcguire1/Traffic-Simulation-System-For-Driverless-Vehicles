@@ -36,7 +36,7 @@ node_y_list = [2.35,0,-2.63];
 //Debug.Log(node_y_list);
 
 var destx = 0;
-destx = node_x_list[Random.Range(0,19)]; 
+destx = node_x_list[Random.Range(0,19)]; //the maximum is inclusive
 var desty = 0;
 desty = node_y_list[Random.Range(0,2)];
 if(destx < 0)
@@ -47,25 +47,46 @@ if(desty < 0)
 {
 	desty = desty*-1;
 }
-
+destx = (destx+24)%20;
+Debug.Log(transform.name);
 //Debug.Log(transform.name)
-Debug.Log("Destx: "+destx);
-Debug.Log("Desty: "+desty);
-Debug.Log("Position: "+transform.position.x);
+Debug.Log("Destx: "+node_x_list[destx]);
+Debug.Log("Desty: "+node_y_list[desty]);
+Debug.Log("Positionx: "+transform.position.x);
+Debug.Log("Positiony: "+transform.position.y);
 var i = 0;
 var array_postitionx = -50;
 var array_destinationx = -50;
 var array_postitiony = -50;
 var array_destinationy = -50;
-var x_or_y = Random.Range(1,2);
+var x_or_y = 0;
+x_or_y = Random.Range(1,4);
 if(x_or_y < 0)
 {
 	x_or_y = x_or_y*-1;
 }
-//x_or_y = 1.8;
-//if(x_or_y > 1.5)
-//{
 
+
+/*function closest_var(arr : Array, closestTo : float){
+
+//var closest = arr[0].Max();
+
+    var closest = Mathf.Max(arr[0], arr[arr.length]); //Get the highest number in arr in case it match nothing.
+    //var closest =  transform.position
+
+    for(var i = 0; i < arr.length; i++){ //Loop the array
+        if(arr[i] >= closestTo && arr[i] < closest) closest = arr[i]; //Check if it's higher than your number, but lower than your closest value
+    }
+
+    return closest; // return the value
+}
+
+var position_closest = 0;
+position_closest = closest(node_x_list, transform.position.x);*/
+
+function build_x_node_list(node_x_list : Array, destx : int, array_postitionx : int, array_destinationx : int)
+{
+	i = 0;
 	while(array_postitionx == -50 || array_destinationx == -50)
 	{
 		//handles x dest & pos
@@ -78,36 +99,37 @@ if(x_or_y < 0)
 			array_destinationx = i;
 		}
 		i = i+1;
-		if(i > node_x_list.length)
+		if(i > node_x_list.length || i < 0)
 		{
 			transform.position.x = node_x_list[3];
 			array_postitionx = 3;	
 		}
 
 	}
+	i = 0;
 	while(array_destinationx != array_postitionx)
 	{
 
 	//Debug.Log(node_list);
-		i = 0;
+		
 		if(array_destinationx < array_postitionx)
 		{
 			node_list.push(node_x_list[array_postitionx],transform.position.y);
 			array_postitionx = array_postitionx-1;
-			i = i+2;
+			//i = i+2;
 		}
 		else if(array_destinationx > array_postitionx)
 		{
 			node_list.push(node_x_list[array_postitionx],transform.position.y);
 			array_postitionx = array_postitionx +1;
-			i = i+2;
+			//i = i+2;
 		}
 	}
-
-
-//}
-//else
-//{
+	node_list.push(node_x_list[array_destinationx],transform.position.y);
+}
+//var position_closesty = closest_var(node_y_list, transform.position.y);
+function build_y_node_list(node_y_list : Array, desty : int, array_postitiony : int, array_destinationy : int)
+{
 i = 0;
 	while(array_postitiony == -50 || array_destinationy == -50)
 	{
@@ -120,38 +142,55 @@ i = 0;
 		{
 			array_destinationy = i;
 		}
-		i = i+1;
-		if(i > node_y_list.length)
+
+		if(i > node_y_list.length || i < 0)
 		{
-			transform.position.y = node_y_list[3];
+			transform.position.y = node_y_list[1];
 			array_postitiony = 1;	
 		}
+		i = i+1;
 	}
 	//Debug.Log(array_destination);
 	//Debug.Log(array_postitionx);
 
-
+	i = 0;
 	while(array_destinationy != array_postitiony)
 	{
 
 	//Debug.Log(node_list);
-		i = 0;
+		
 		if(array_destinationy < array_postitiony)
 		{
 			node_list.push(transform.position.x,node_y_list[array_postitiony]);
 			array_postitiony = array_postitiony-1;
-			i = i+2;
+			//i = i+2;
 		}
 		else if(array_destinationy > array_postitiony)
 		{
 			node_list.push(transform.position.x,node_y_list[array_postitiony]);
 			array_postitiony = array_postitiony +1;
-			i = i+2;
+			//i = i+2;
 		}
 	}
+	node_list.push(transform.position.x,node_y_list[array_destinationy]);
+}
 
+if(x_or_y > 2)
+{
+	build_x_node_list(node_x_list, destx, array_postitionx, array_destinationx);
+	Debug.Log("Finished 1");
+	build_y_node_list(node_y_list, desty, array_postitiony, array_destinationy);
+	Debug.Log("Finished 2");
+}
+else
+{
+	build_y_node_list(node_y_list, desty, array_postitiony, array_destinationy);
+	Debug.Log("Finished 3");
+	build_x_node_list(node_x_list, destx, array_postitionx, array_destinationx);
+	Debug.Log("Finished 4");
+}
 
-
+Debug.Log("X_or_Y: "+ x_or_y);
 Debug.Log("NodeList: "+node_list);
 //node_list = [-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0];
 //Debug.Log(node_list);
@@ -214,7 +253,7 @@ to jumping from one posiition to the next.
 
     	//if (OnCollisionEnter(gameObject) == false)
     	//{
-    	speed = 1;
+    	speed = 1.5;
 	        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
 	        transform.position = Vector3.MoveTowards(startingPosition, Vector2(node_list[i],node_list[i+1]), timeSinceStarted);
 	        transform.right = Vector2(node_list[i],node_list[i+1]) - transform.position;
