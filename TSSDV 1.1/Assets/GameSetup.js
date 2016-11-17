@@ -29,12 +29,9 @@
       {      
           //AllSprites[i] = imports[i];
       }
-      Cars = GameObject.FindGameObjectWithTag("Car");
 
       var index = 1;
-      var random_number = 0;
-	  var random_number_array = new Array();
-      var checker = true;
+
 
       while(index < 20)
       { 
@@ -66,6 +63,8 @@
       			}
       		}
       	}*/
+      	CreateGameObjectFromPrefab(index);
+      	/*
 
       	random_number = Random.Range(0,19);
       	if(random_number < 0)
@@ -82,7 +81,7 @@
       	//Debug.Log('Randx'+random_number);
       	//Debug.Log('Randy'+random_numbery);
       	car = Instantiate(Cars, new Vector3(node_x_list[random_number] ,node_y_list[random_numbery], 0), Quaternion.identity) as GameObject;
-      	car.name = "Car"+index;
+      	car.name = "Car"+index;*/
       	//destination_x.push(node_x_list[ Random.Range(0,19)])
       	//destination_y.push(node_y_list[ Random.Range(0,2)])
       	//Cars[index] = car;
@@ -91,5 +90,34 @@
       	index=index+1;
       	//Cars[i].GetComponent<SpriteRenderer>().sprite = (Sprite)AllSprites[i];
       }
+
+
      
  }
+
+ function CreateGameObjectFromPrefab(index)
+      {
+      	Cars = GameObject.FindGameObjectWithTag("Car");
+      	var node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
+ 		var node_y_list = [2.35,0,-2.63];
+ 		//var destination_x = [];
+ 		//var destination_y = [];
+ 		//node_y_list[2] = node_y_list[2]*-1;
+      	//var index = 1;
+      	var random_number = 0;
+	  	var random_number_array = new Array();
+      	var checker = true;
+      	random_number = Random.Range(0,19);
+      	if(random_number < 0)
+      	{
+      		random_number = random_number*-1;
+      	}
+      	var random_numbery = 0;
+      	random_numbery = Random.Range(0,3);
+      	if(random_numbery < 0)
+      	{
+      		random_numbery = random_numbery*-1;
+      	}
+      	car = Instantiate(Cars, new Vector3(node_x_list[random_number] ,node_y_list[random_numbery], 0), Quaternion.identity) as GameObject;
+      	car.name = "Car"+index;
+      }

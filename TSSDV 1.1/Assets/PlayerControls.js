@@ -29,7 +29,7 @@ var node_y_list= new Array();
 
 //node_list = [8.5,-4.37,8.5,3.9,-7.9,3.9,-7.9,-4.37];
 
-
+public var GameSetup : GameSetup;
 node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
 node_y_list = [2.35,0,-2.63];
 //Debug.Log(node_x_list);
@@ -48,12 +48,12 @@ if(desty < 0)
 	desty = desty*-1;
 }
 destx = (destx+24)%20;
-Debug.Log(transform.name);
+//Debug.Log(transform.name);
 //Debug.Log(transform.name)
-Debug.Log("Destx: "+node_x_list[destx]);
-Debug.Log("Desty: "+node_y_list[desty]);
-Debug.Log("Positionx: "+transform.position.x);
-Debug.Log("Positiony: "+transform.position.y);
+//Debug.Log("Destx: "+node_x_list[destx]);
+//Debug.Log("Desty: "+node_y_list[desty]);
+//Debug.Log("Positionx: "+transform.position.x);
+//Debug.Log("Positiony: "+transform.position.y);
 var i = 0;
 var array_postitionx = -50;
 var array_destinationx = -50;
@@ -178,20 +178,22 @@ i = 0;
 if(x_or_y > 2)
 {
 	build_x_node_list(node_x_list, destx, array_postitionx, array_destinationx);
-	Debug.Log("Finished 1");
+	//Debug.Log("Finished 1");
 	build_y_node_list(node_y_list, desty, array_postitiony, array_destinationy);
-	Debug.Log("Finished 2");
+	//Debug.Log("Finished 2");
+
 }
 else
 {
 	build_y_node_list(node_y_list, desty, array_postitiony, array_destinationy);
-	Debug.Log("Finished 3");
+	//Debug.Log("Finished 3");
 	build_x_node_list(node_x_list, destx, array_postitionx, array_destinationx);
-	Debug.Log("Finished 4");
+	//Debug.Log("Finished 4");
 }
 
-Debug.Log("X_or_Y: "+ x_or_y);
-Debug.Log("NodeList: "+node_list);
+node_list.push(node_x_list[destx],node_y_list[desty]);
+//Debug.Log("X_or_Y: "+ x_or_y);
+//Debug.Log("NodeList: "+node_list);
 //node_list = [-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0,-1.4,0,3,0];
 //Debug.Log(node_list);
 
@@ -206,7 +208,7 @@ Debug.Log("NodeList: "+node_list);
 //This function executes everything at startup immediately
 function Start () {
 //rb = GetComponent.<Rigidbody>();
-Travel(node_list,0,4);
+Travel(node_list,node_x_list[destx],node_y_list[desty]);
 }
 //When the user inputs anything the code to make a change goes in here
 function Update () {
@@ -260,8 +262,39 @@ to jumping from one posiition to the next.
 
 	        if (transform.position ==  Vector2(destinationX,destinationY))
 	        {
+	        	 
 	            checker = false;
+	            Debug.Log("Journey Complete "+transform.name);
+	            //GameSetup.CreateGameObjectFromPrefab(11);/*
+	            var car : GameObject;
+	            var Cars : GameObject;
+	            Cars = GameObject.Find(transform.name);
+	            var node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
+ 				var node_y_list = [2.35,0,-2.63];
+ 				//var destination_x = [];
+ 				//var destination_y = [];
+ 				//node_y_list[2] = node_y_list[2]*-1;
+      			//var index = 1;
+      			var random_number = 0;
+	  			var random_number_array = new Array();
+      			var checker = true;
+      			random_number = Random.Range(0,19);
+      			if(random_number < 0)
+      			{
+      				random_number = random_number*-1;
+      			}
+      			var random_numbery = 0;
+      			random_numbery = Random.Range(0,3);
+      			if(random_numbery < 0)
+      			{
+      				random_numbery = random_numbery*-1;
+      			}
+      			car = Instantiate(Cars, new Vector3(node_x_list[random_number] ,node_y_list[random_numbery], 0), Quaternion.identity) as GameObject;
+      			car.name = transform.name;
+	            Destroy (GameObject.Find(transform.name)); 
+
 	        }
+
 	        else if(transform.position == Vector2(node_list[i],node_list[i+1]))
 	        {
 	        	startingPosition = transform.position;
