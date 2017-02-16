@@ -1,0 +1,23 @@
+# Xcode and system
+.DS_Store
+Products
+*.pbxuser
+*.perspectivev3
+
+
+
+# Unity3D
+/Build/
+/Temp/*
+/Library/*
+
+
+
+# Monodevelop
+/Assembly-CSharp.pidb
+*.userprefs
+
+# Visual Studio
+*.suo
+*.user
+obj/
