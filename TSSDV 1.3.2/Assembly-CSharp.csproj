@@ -93,7 +93,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="ProjNet">
- <HintPath>/Users/FionnMcguire/College/FYP/Traffic Simulation For Driverless Vehicles/TSSDV 1.3.2/Assets/UnitySlippyMap/Dll/ProjNet.1.2/ProjNet.dll</HintPath>
+ <HintPath>/Users/FionnMcguire/College/Traffic-Simulation-System-For-Driverless-Vehicles/TSSDV 1.3.2/Assets/UnitySlippyMap/Dll/ProjNet.1.2/ProjNet.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

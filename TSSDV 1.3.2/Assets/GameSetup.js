@@ -6,10 +6,6 @@
  public var car : GameObject;
  //public var new_Cars : GameObject[];
  var i =0;
- //public var node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
- //public var node_y_list = [2.35,0,-2.63];
- //node_y_list[2] = node_y_list[2]*-1;
-
 
 
  //Reading the lat/long query csv file into an array//////////////////////////
@@ -28,14 +24,6 @@
   	public static var journeyCounter = 0;
   	public static var Ydepth = 0.2f;
   }
-
-   /*	public var multiDimensionalArray : int[,] = new int[1,2];;
-	multiDimensionalArray[0,0] = 0;
-	multiDimensionalArray[0,1] = 1;
-	Debug.Log(multiDimensionalArray[0,0]);
-		Debug.Log(multiDimensionalArray[0,1]);*/
-
-
     while(j < text.Length)
     {
     	if(text[j] == '-' || text[j] == '.' || text[j] == ' ' || text[j] == '0' || text[j] == '1' || text[j] == '2' || text[j] == '3' || 
@@ -67,9 +55,9 @@
 var Xdifference = 4.063;
 var Xmax = 2.05;
 var Xmin = -2.013;
-var Zdifference = 2.0311;
 var Zmax = 1.1491;
 var Zmin = -0.882;
+var Zdifference = 2.0311;
 var LatDifference = 0.066341;
 var Latmin = -74.004091;
 var Latmax = -73.937750;
@@ -131,15 +119,24 @@ while(j<TrafficLightLatArr.length)
 	j = j+1;
 }
 
-
-//xList.sort();
-//zList.sort();
-//Debug.Log(xList);
-//Debug.Log(zList);
-//Debug.Log(GlobalVariables.xList[50]);
-
-
  function Start () {
+
+ 		//Car7 (0.3, 0.2, 0.5),(0.3, 0.2, 0.5),(0.3, 0.2, 0.6),(0.4, 0.2, 0.6),(0.4, 0.2, 0.7),(0.4, 0.2, 0.8),(0.3, 0.2, 0.9),(0.1, 0.2, 0.9)
+
+ 		/*i = 0;
+ 		while(i<GlobalVariables.zList.length)
+ 		{
+ 			if(Vector3(0.3, 0.2, 0.5) == Vector3(GlobalVariables.xList[i] ,GlobalVariables.Ydepth, GlobalVariables.zList[i]))
+ 			{
+ 				Debug.Log(i+" (0.3, 0.2, 0.5)");
+ 			}
+ 			else if(Vector3(0.3, 0.2, 0.6) == Vector3(GlobalVariables.xList[i] ,GlobalVariables.Ydepth, GlobalVariables.zList[i]))
+ 			{
+ 				Debug.Log(i+" (0.3, 0.2, 0.6)");
+ 			}
+ 			i = i+1;
+ 		}*/
+
 	  //Imports all the sprites in the folder Car_Types in Resources
       var imports : Object[] = Resources.LoadAll("Car_Types/" , Sprite);
 
@@ -152,8 +149,8 @@ while(j<TrafficLightLatArr.length)
           //AllSprites[i] = imports[i];
       }
 
-      var index = 1;
-      //while(index < 100)
+      var index = 0;
+      //while(index < 1)
       while(index < GlobalVariables.xList.length)
       { 
       	CreateGameObjectFromPrefab(index);     
@@ -167,14 +164,6 @@ while(j<TrafficLightLatArr.length)
       	//Debug.Log("zList: "+zList.length);
       	var car : GameObject;
       	Cars = GameObject.FindGameObjectWithTag("Car");
-
-      	//Cars.transform.Rotate(90,0,0);
-      	//var node_x_list = [-6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6];
- 		//var node_y_list = [2.35,0,-2.63];
- 		//var destination_x = [];
- 		//var destination_y = [];
- 		//node_y_list[2] = node_y_list[2]*-1;
-      	//var index = 1;
       	var random_number = 0;
 	  	var random_number_array = new Array();
       	var checker = true;
@@ -184,9 +173,5 @@ while(j<TrafficLightLatArr.length)
       		random_number = random_number*-1;
       	}
       	car = Instantiate(Cars, new Vector3(GlobalVariables.xList[index] ,GlobalVariables.Ydepth, GlobalVariables.zList[index]), Quaternion.Euler(90, 0, 0)) as GameObject;
-      	//car = Instantiate(Cars, new Vector3(GlobalVariables.xList[250],GlobalVariables.Ydepth,GlobalVariables.zList[250]), Quaternion.Euler(90, 0, 0)) as GameObject;
-      	
-
-
       	car.name = "Car"+index;
       }
