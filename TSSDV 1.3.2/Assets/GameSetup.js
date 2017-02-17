@@ -9,7 +9,12 @@
 
 
  //Reading the lat/long query csv file into an array//////////////////////////
+ //This is the MAC OS path to the file
+ //On windows the path is 
+ //var text = System.IO.File.ReadAllText("C:/Users/Fionn Mcguire/Documents/GitHub/Traffic-Simulation-System-For-Driverless-Vehicles/TSSDV 1.3.2/Assets/Resources/TrafficSignals.csv");
+ //Assuming you create your cloned github repos in the suggested folder /Documents/Github/
  var text = System.IO.File.ReadAllText("/Users/Shared/Unity/TSSDV 1.3.2/Assets/Resources/TrafficSignals.csv");
+ //var text = System.IO.File.ReadAllText(Resources.Load("TrafficSignals.csv"));
 
   var j = 0;
   var k = 0;
@@ -121,22 +126,6 @@ while(j<TrafficLightLatArr.length)
 }
 
  function Start () {
-
- 		//Car7 (0.3, 0.2, 0.5),(0.3, 0.2, 0.5),(0.3, 0.2, 0.6),(0.4, 0.2, 0.6),(0.4, 0.2, 0.7),(0.4, 0.2, 0.8),(0.3, 0.2, 0.9),(0.1, 0.2, 0.9)
-
- 		/*i = 0;
- 		while(i<GlobalVariables.zList.length)
- 		{
- 			if(Vector3(0.3, 0.2, 0.5) == Vector3(GlobalVariables.xList[i] ,GlobalVariables.Ydepth, GlobalVariables.zList[i]))
- 			{
- 				Debug.Log(i+" (0.3, 0.2, 0.5)");
- 			}
- 			else if(Vector3(0.3, 0.2, 0.6) == Vector3(GlobalVariables.xList[i] ,GlobalVariables.Ydepth, GlobalVariables.zList[i]))
- 			{
- 				Debug.Log(i+" (0.3, 0.2, 0.6)");
- 			}
- 			i = i+1;
- 		}*/
 
 	  //Imports all the sprites in the folder Car_Types in Resources
       var imports : Object[] = Resources.LoadAll("Car_Types/" , Sprite);

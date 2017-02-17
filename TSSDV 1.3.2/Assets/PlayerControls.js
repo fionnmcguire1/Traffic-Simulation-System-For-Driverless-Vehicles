@@ -5,20 +5,6 @@ Prototype: 1
 Author: Fionn Mcguire
 Date: 01/11/2016
 */
-
-/*
-List Of New York Nodes
-X Values  -6.85,-6.2,-5.55,-4.9,-4.2,-3.55,-2.87,-2.15,-1.4,-0.75,-0.07,0.6,1.3,1.98,2.63,3.3,4,4.65,5.34,6
-Y Values 2.35,0,2.63
-*/
-
-//These variables are for user input
-//var moveLeft : KeyCode;
-//var moveRight : KeyCode;
-//var moveUp : KeyCode;
-//var moveDown : KeyCode;
-//var game_setup: GameSetup;
-//This controled the speed of the car when responding to user input which changed veolocity by this much
 public var speed : float = 0.2; //This would represent 30km/h however this must be tinkered with as it's still too fast.
 //Checker exits the while loop in the travel function which finishes the function.
 var checker : boolean = true;
@@ -252,13 +238,6 @@ the final point in the route is the destination*/
 	//Debug.Log(transform.name+" "+RouteList);
 	return RouteList;
 }
-
-
-
-
-
-	    
-
  function Travel (RouteList : Array)
  {
  	//Debug.Log(RouteList);
@@ -279,21 +258,14 @@ the final point in the route is the destination*/
 
 	        if (transform.position ==  RouteList[RouteList.length-1])
 	        {
-	        	 
+	        	GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
 	            checker = false;
 	            //Debug.Log("Journey Complete "+transform.name);
-	            GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
-	            //Debug.Log(GlobalVariables.journeyCounter);
-	            //GameSetup.CreateGameObjectFromPrefab(11);/*
 	            var car : GameObject;
 	            var Cars : GameObject;
 	            Cars = GameObject.Find(transform.name);
       			var random_number = 0;
-	  			//var random_number_array = new Array();
-      			//var checker = true;
       			random_number = Random.Range(1,GlobalVariables.xList.length-1);
-      			//Debug.Log(transform.name+" Random "+random_number);
-
       			car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
       			car.name = transform.name;
 	            Destroy (GameObject.Find(transform.name)); 
@@ -308,7 +280,4 @@ the final point in the route is the destination*/
 	        }
 	        yield WaitForSeconds (0.01);
     }
-
-
  }
-
