@@ -32,6 +32,7 @@ function Start () {
 var RouteList = new Array ();
 RouteList = SPF();
 Travel(RouteList);
+
 }
 //When the user inputs anything the code to make a change goes in here
 function Update () {
@@ -282,7 +283,7 @@ the final point in the route is the destination*/
 	            checker = false;
 	            //Debug.Log("Journey Complete "+transform.name);
 	            GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
-	            Debug.Log(GlobalVariables.journeyCounter);
+	            //Debug.Log(GlobalVariables.journeyCounter);
 	            //GameSetup.CreateGameObjectFromPrefab(11);/*
 	            var car : GameObject;
 	            var Cars : GameObject;

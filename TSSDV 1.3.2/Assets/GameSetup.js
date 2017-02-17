@@ -22,6 +22,7 @@
   	public static var xList = new Array ();
   	public static var zList = new Array ();
   	public static var journeyCounter = 0;
+  	public static var CollisionCounter = 0;
   	public static var Ydepth = 0.2f;
   }
     while(j < text.Length)
@@ -150,8 +151,8 @@ while(j<TrafficLightLatArr.length)
       }
 
       var index = 0;
-      //while(index < 1)
-      while(index < GlobalVariables.xList.length)
+      while(index < 51)
+      //while(index < GlobalVariables.xList.length)
       { 
       	CreateGameObjectFromPrefab(index);     
       	index=index+1;
