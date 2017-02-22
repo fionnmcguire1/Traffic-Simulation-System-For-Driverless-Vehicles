@@ -5,7 +5,7 @@ Prototype: 1
 Author: Fionn Mcguire
 Date: 01/11/2016
 */
-public var speed : float = 0.2; //This would represent 30km/h however this must be tinkered with as it's still too fast.
+public static var speed : float = 0.2; //This would represent 30km/h however this must be tinkered with as it's still too fast.
 //Checker exits the while loop in the travel function which finishes the function.
 var checker : boolean = true;
 //Array of nodes i.e a route
@@ -248,36 +248,46 @@ the final point in the route is the destination*/
 
     while (checker === true)
     {
+    	//if(transform.tag != "Untagged")
+    	//{
+	    	speed = .2;
+		        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
+		        transform.position = Vector3.MoveTowards(startingPosition, RouteList[i], timeSinceStarted);
+		        /*if(transform.tag == "Collided")
+	    		{
+	    			checker = false;
+	    		}*/
+		        transform.right = transform.position - startingPosition;
+		        transform.Rotate(90,0,0);
+		       // Debug.Log(transform.rotation);
 
-    	speed = .2;
-	        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
-	        transform.position = Vector3.MoveTowards(startingPosition, RouteList[i], timeSinceStarted);
-	        transform.right = transform.position - startingPosition;
-	        transform.Rotate(90,0,0);
-	       // Debug.Log(transform.rotation);
+		        if (transform.position ==  RouteList[RouteList.length-1])
+		        {
+		        	GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
+		            checker = false;
+		            //Debug.Log("Journey Complete "+transform.name);
+		            var car : GameObject;
+		            var Cars : GameObject;
+		            Cars = GameObject.Find(transform.name);
+	      			var random_number = 0;
+	      			random_number = Random.Range(1,GlobalVariables.xList.length-1);
+	      			car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
+	      			car.name = transform.name;
+		            Destroy (GameObject.Find(transform.name)); 
 
-	        if (transform.position ==  RouteList[RouteList.length-1])
-	        {
-	        	GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
-	            checker = false;
-	            //Debug.Log("Journey Complete "+transform.name);
-	            var car : GameObject;
-	            var Cars : GameObject;
-	            Cars = GameObject.Find(transform.name);
-      			var random_number = 0;
-      			random_number = Random.Range(1,GlobalVariables.xList.length-1);
-      			car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
-      			car.name = transform.name;
-	            Destroy (GameObject.Find(transform.name)); 
+		        }
 
-	        }
-
-	        else if(transform.position == RouteList[i])
-	        {
-	        	startingPosition = transform.position;
-	        	timeSinceStarted = 0f;
-	        	i = i+1;
-	        }
-	        yield WaitForSeconds (0.01);
+		        else if(transform.position == RouteList[i])
+		        {
+		        	startingPosition = transform.position;
+		        	timeSinceStarted = 0f;
+		        	i = i+1;
+		        }
+		        yield WaitForSeconds (0.01);
+	    /*}
+	    else
+	    {
+	    	break;
+	    }*/
     }
  }

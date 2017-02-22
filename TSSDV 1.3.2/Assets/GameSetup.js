@@ -2,7 +2,7 @@
 
 //Creates an array called AllSprites
  public var AllSprites : Sprite[];
- public var Cars : GameObject;
+ public static var Cars : GameObject;
  public var car : GameObject;
  //public var new_Cars : GameObject[];
  var i =0;
@@ -140,7 +140,7 @@ while(j<TrafficLightLatArr.length)
       }
 
       var index = 0;
-      while(index < 51)
+      while(index < 55)
       //while(index < GlobalVariables.xList.length)
       { 
       	CreateGameObjectFromPrefab(index);     
@@ -148,7 +148,7 @@ while(j<TrafficLightLatArr.length)
       }
  }
 
- function CreateGameObjectFromPrefab(index)
+ public static function CreateGameObjectFromPrefab(index)
       {
       	//Debug.Log("xList: "+xList.length);
       	//Debug.Log("zList: "+zList.length);
@@ -165,3 +165,27 @@ while(j<TrafficLightLatArr.length)
       	car = Instantiate(Cars, new Vector3(GlobalVariables.xList[index] ,GlobalVariables.Ydepth, GlobalVariables.zList[index]), Quaternion.Euler(90, 0, 0)) as GameObject;
       	car.name = "Car"+index;
       }
+
+ public static function CreateCollisionArea(location)
+ {
+ 		
+      	var collisionarea : GameObject;
+      	collisionarea = GameObject.Find("CollisionArea");
+      	collisionarea = Instantiate(collisionarea, location, Quaternion.Euler(90, 0, 0)) as GameObject;
+      	collisionarea.name = "CollisionArea"+GlobalVariables.CollisionCounter;
+      	//Debug.Log(collisionarea.name);
+      	//this.DestroyCollisionArea(collisionarea.name);
+      	//yield WaitForSeconds (0.2);
+      	//Debug.Log(collisionarea.name);
+      	//Destroy(collisionarea);
+}
+
+ public static function DestroyCollisionArea(GO)
+ {
+ 		Debug.Log("Hello");
+ 		var GameO : GameObject;
+ 		GameO = GameObject.Find(GO);
+      	Debug.Log(GameO.name);
+      	yield WaitForSeconds (0.2);
+      	Destroy(GameO);
+}
