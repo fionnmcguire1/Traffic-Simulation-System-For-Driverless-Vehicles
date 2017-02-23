@@ -3,15 +3,30 @@
 function OnCollisionEnter (col : Collision)
 {	//Destroy(other.gameObject);
 	//var force : float;
+	//Debug.Log("Veolocity "+gameObject.GetComponent.<Rigidbody>().velocity.magnitude);
+	//Debug.Log("Mass "+gameObject.GetComponent.<Rigidbody>().mass);
 	//force = col.rigidbody.velocity.magnitude*col.rigidbody.mass;
 	// && force > 0.01
-	if(col.gameObject.name.length < 6)
+	var AngleDifference : float;
+	AngleDifference = transform.eulerAngles.y - col.transform.eulerAngles.y;
+	if(AngleDifference < 0)
+	{
+		AngleDifference = AngleDifference*-1;
+	}
+	if(col.gameObject.name.length < 6 && AngleDifference < 140)
     {
-    	GlobalVariables.CollisionCounter = GlobalVariables.CollisionCounter+1;
+    	//var contact: ContactPoint = col.contacts[0].point;
+    	//Debug.Log(col.contacts[0].point);
+    	//GlobalVariables.CollisionCounter = GlobalVariables.CollisionCounter+1;
     	//Debug.Log("Collision "+GlobalVariables.CollisionCounter);
     	var car : GameObject;
 	    var Cars : GameObject;
 	    var random_number = 0;
+
+
+	    //var Direction : Vector3 = col.transform.position - transform.position;
+	    //Debug.Log(Direction);
+
 
 		Cars = GameObject.Find(transform.name);
 		random_number = Random.Range(1,GlobalVariables.xList.length-1);
@@ -19,7 +34,7 @@ function OnCollisionEnter (col : Collision)
 		Cars.GetComponent(VehicleCollision).enabled = true;
 		car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
 		car.name = gameObject.name;
-		GameSetup.CreateCollisionArea(transform.position);
+		GameSetup.CreateCollisionArea(col.contacts[0].point);
 		//Debug.Log(col.rigidbody.velocity.magnitude*col.rigidbody.mass);
 		//gameObject.transform.position = Vector3(0,0,0);
 		//yield WaitForSeconds (0.4);

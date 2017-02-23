@@ -248,19 +248,11 @@ the final point in the route is the destination*/
 
     while (checker === true)
     {
-    	//if(transform.tag != "Untagged")
-    	//{
 	    	speed = .2;
 		        timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;
 		        transform.position = Vector3.MoveTowards(startingPosition, RouteList[i], timeSinceStarted);
-		        /*if(transform.tag == "Collided")
-	    		{
-	    			checker = false;
-	    		}*/
 		        transform.right = transform.position - startingPosition;
 		        transform.Rotate(90,0,0);
-		       // Debug.Log(transform.rotation);
-
 		        if (transform.position ==  RouteList[RouteList.length-1])
 		        {
 		        	GlobalVariables.journeyCounter = GlobalVariables.journeyCounter+1;
@@ -284,10 +276,5 @@ the final point in the route is the destination*/
 		        	i = i+1;
 		        }
 		        yield WaitForSeconds (0.01);
-	    /*}
-	    else
-	    {
-	    	break;
-	    }*/
     }
  }

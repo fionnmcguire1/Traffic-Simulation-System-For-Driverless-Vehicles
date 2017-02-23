@@ -26,6 +26,7 @@
   {
   	public static var xList = new Array ();
   	public static var zList = new Array ();
+  	public static var CollisionArray = new Array ();
   	public static var journeyCounter = 0;
   	public static var CollisionCounter = 0;
   	public static var Ydepth = 0.2f;
@@ -140,7 +141,7 @@ while(j<TrafficLightLatArr.length)
       }
 
       var index = 0;
-      while(index < 55)
+      while(index < 100)
       //while(index < GlobalVariables.xList.length)
       { 
       	CreateGameObjectFromPrefab(index);     
@@ -168,24 +169,24 @@ while(j<TrafficLightLatArr.length)
 
  public static function CreateCollisionArea(location)
  {
- 		
-      	var collisionarea : GameObject;
-      	collisionarea = GameObject.Find("CollisionArea");
-      	collisionarea = Instantiate(collisionarea, location, Quaternion.Euler(90, 0, 0)) as GameObject;
-      	collisionarea.name = "CollisionArea"+GlobalVariables.CollisionCounter;
-      	//Debug.Log(collisionarea.name);
-      	//this.DestroyCollisionArea(collisionarea.name);
-      	//yield WaitForSeconds (0.2);
-      	//Debug.Log(collisionarea.name);
-      	//Destroy(collisionarea);
-}
-
- public static function DestroyCollisionArea(GO)
- {
- 		Debug.Log("Hello");
- 		var GameO : GameObject;
- 		GameO = GameObject.Find(GO);
-      	Debug.Log(GameO.name);
-      	yield WaitForSeconds (0.2);
-      	Destroy(GameO);
+ 		//var objects : GameObject[]; 
+ 		//objects = GameObject.FindObjectsOfType<GameObject>();
+ 		var i = 0;
+ 		var alreadyCreated = false;
+ 		for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject))
+		{
+ 			if(gameObj.transform.position == location)
+ 			{
+ 				alreadyCreated = true;
+ 			}
+ 			//i = i+1;
+ 		}
+ 		if(alreadyCreated == false)
+ 		{
+ 			GlobalVariables.CollisionCounter = GlobalVariables.CollisionCounter+1;
+	      	var collisionarea : GameObject;
+	      	collisionarea = GameObject.Find("CollisionArea");
+	      	collisionarea = Instantiate(collisionarea, location, Quaternion.Euler(90, 0, 0)) as GameObject;
+	      	collisionarea.name = "CollisionArea"+GlobalVariables.CollisionCounter;
+      	}
 }
