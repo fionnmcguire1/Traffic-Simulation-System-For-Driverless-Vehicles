@@ -30,6 +30,7 @@
   	public static var journeyCounter = 0;
   	public static var CollisionCounter = 0;
   	public static var Ydepth = 0.2f;
+  	public static var CollisionArrayPosition = 0;
   }
     while(j < text.Length)
     {
@@ -139,9 +140,10 @@ while(j<TrafficLightLatArr.length)
       {      
           //AllSprites[i] = imports[i];
       }
-
-      var index = 0;
-      while(index < 100)
+      //Cars = GameObject.FindGameObjectWithTag("Car");
+      //Cars.transform.position = Vector3(GlobalVariables.xList[0] ,GlobalVariables.Ydepth, GlobalVariables.zList[0]);
+      var index = 1;
+      while(index < 50)
       //while(index < GlobalVariables.xList.length)
       { 
       	CreateGameObjectFromPrefab(index);     
@@ -154,7 +156,7 @@ while(j<TrafficLightLatArr.length)
       	//Debug.Log("xList: "+xList.length);
       	//Debug.Log("zList: "+zList.length);
       	var car : GameObject;
-      	Cars = GameObject.FindGameObjectWithTag("Car");
+      	Cars = GameObject.Find("Car");;
       	var random_number = 0;
 	  	var random_number_array = new Array();
       	var checker = true;

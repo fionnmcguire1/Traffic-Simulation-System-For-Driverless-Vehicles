@@ -13,7 +13,7 @@ function OnCollisionEnter (col : Collision)
 	{
 		AngleDifference = AngleDifference*-1;
 	}
-	if(col.gameObject.name.length < 6 && AngleDifference < 140)
+	if(col.gameObject.name.length < 6 && AngleDifference < 140 && AngleDifference > 70)
     {
     	//var contact: ContactPoint = col.contacts[0].point;
     	//Debug.Log(col.contacts[0].point);
@@ -35,97 +35,34 @@ function OnCollisionEnter (col : Collision)
 		car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
 		car.name = gameObject.name;
 		GameSetup.CreateCollisionArea(col.contacts[0].point);
-		//Debug.Log(col.rigidbody.velocity.magnitude*col.rigidbody.mass);
-		//gameObject.transform.position = Vector3(0,0,0);
-		//yield WaitForSeconds (0.4);
+
+
+		var currentNode = col.contacts[0].point;
+		var shortestDist = 20.0;
+	 	var i = 0;
+	 	var dist : float;
+	 	var shortestPoint;
+		while(i < GlobalVariables.xList.length)
+		{
+			//Distance from  point on list to current point
+			dist = (Vector3(GlobalVariables.xList[i],GlobalVariables.Ydepth,GlobalVariables.zList[i]) - currentNode).magnitude;
+			if(dist < shortestDist)
+			{
+				if(dist != 0.0)
+				{
+					shortestDist = dist;												
+					shortestPoint = Vector3(GlobalVariables.xList[i],GlobalVariables.Ydepth,GlobalVariables.zList[i]);
+				}
+			}
+			i = i+1;
+		}
+		//GameSetup.CreateCollisionArea(col.contacts[0].point);
+		//GameSetup.CreateCollisionArea(shortestPoint);
+		GlobalVariables.CollisionArray.push(shortestPoint);
+		//Debug.Log(GlobalVariables.CollisionArray);
+
+
         Destroy(gameObject);
      }
 
 }
-/*
-	    Cars = GameObject.Find(col.gameObject.name);		
-		random_number = Random.Range(1,GlobalVariables.xList.length-1);
-		car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
-		car.name = col.gameObject.name;*/
-		//Destroy(col.gameObject);
-		//gameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled = false;
-		//yield WaitForSeconds (2);
-		//gameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled = true;
-		/*Cars = GameObject.Find(gameObject.name);
-		random_number = Random.Range(1,GlobalVariables.xList.length-1);
-		car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
-		car.name = gameObject.name;   */   
-
-
-		//Cars = GameObject.Find(gameObject.name);
-		//Cars.GetComponent(PlayerControls).checker = false;
-		//transform.tag = "Untagged";
-	    //yield WaitForSeconds (2);
-	    //transform.tag = "Car";
-		//Cars = gameObject;
-		//	var random_number = 0;
-
-/*#pragma strict
-
-function OnCollisionEnter (col : Collision)
-{
-	
-	if(col.gameObject.name.length < 6)
-    {
-    	GlobalVariables.CollisionCounter = GlobalVariables.CollisionCounter+1;
-    	//Debug.Log("Collision "+GlobalVariables.CollisionCounter);
-    	Debug.Log("Collision GO"+gameObject.name+"  Col"+col.gameObject.name);
-
-
-    	var car : GameObject;
-	    var Cars : GameObject;
-	    var random_number = 0;
-	    var Carname = transform.name;
-	    //var gameobject : GameObject;
-	    //var PC;
-	    //@@@@@@@@Code To Try Pause player script to simulate the car crash@@@@@@@@//
-	    //PC = GameObject.Find(Carname).GetComponent(PlayerControls);
-
-	    //PC.enable = !PC.enabled;
-	    //PlayerControls.enable = false;
-	    //GameObject.Find(col.gameObject.name).GetComponent(PlayerControls).enabled = false;
-		//GameObject.Find(col.gameObject.name).GetComponent(PlayerControls).enabled = false;
-		//gameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled = false;
-		//transform.veolocity=Vector3.zero;
-
-	    //PC.enable = !PC.enabled;
-	    //gameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled = true;
-	    //PlayerControls.enable = true;
-	    //GameObject.Find(Carname).GetComponent(PlayerControls).enabled = GameObject.Find(Carname).GetComponent(PlayerControls).enabled;
-	    //GameObject.Find(col.gameObject.name).GetComponent(PlayerControls).enabled = true;
-	    //gameObject.GetComponent(PlayerControls).enabled = true;
-	    //Debug.Log(col.gameObject.name+"Col "+col.gameObject.name.GetComponent(PlayerControls).enabled);
-    	//Debug.Log(gameObject.name+"GO "+gameObject.name.GetComponent(PlayerControls).enabled);
-    	/*if(GameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled == false)
-    	{
-    		GameObject.Find(gameObject.name).GetComponent(PlayerControls).enabled = true;
-    	}
-		//Reinitiation
-		Cars = GameObject.Find(Carname);
-		//Cars.GetComponent(PlayerControls).checker = false;
-		//transform.tag = "Untagged";
-	    //yield WaitForSeconds (2);
-	    //transform.tag = "Car";
-		//Cars = gameobject;
-		//	var random_number = 0;
-		random_number = Random.Range(1,GlobalVariables.xList.length-1);
-		//Cars.GetComponent(PlayerControls).enabled = true;
-		car = Instantiate(Cars, new Vector3(GlobalVariables.xList[random_number] ,GlobalVariables.Ydepth,GlobalVariables.zList[random_number]), Quaternion.Euler(90, 0, 0)) as GameObject;
-		car.name = Carname;
-		//car.tag = "Car";
-		//gameObject.Find(Carname).GetComponent(PlayerControls).enabled = true;
-		//GameObject.Find(col.gameObject.name).GetComponent(PlayerControls).enabled = true;
-		Destroy (gameObject);
-		//Destroy (col.gameObject);
-		//Destroy (col.gameObject);
-        
-     }
-
-}*/
-
-
