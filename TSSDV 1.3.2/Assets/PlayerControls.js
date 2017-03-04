@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 /*
-Prototype: 1
+Prototype: 5
 Author: Fionn Mcguire
 Date: 01/11/2016
 */
@@ -328,7 +328,7 @@ the final point in the route is the destination*/
     {    	
     	////////////////////////////////////////////////////////////////////////
     	// && getOut == false && i != 0 && i != RouteList.length-1
-    	while(j<GlobalVariables.CollisionArray.length)
+    	/*while(j<GlobalVariables.CollisionArray.length)
     	{
     		if(RouteList[i] == GlobalVariables.CollisionArray[j])
     		{
@@ -365,7 +365,7 @@ the final point in the route is the destination*/
 					l=l+1;
 				}
 				RouteList = PrerouteList;
-    		}
+    		}*/
 				/*var rerouteIndex;
 				rerouteIndex =i;
     			Reroute(RouteList,rerouteIndex);*/
@@ -439,10 +439,10 @@ the final point in the route is the destination*/
     			{
     				getOut = true;
     			}*/
-
+    			/*
     		}
     		j=j+1;
-    	}
+    	}*/
     	////////////////////////////////////////////////////////////////////////
     	speed = 0.5;
         timeSinceStarted = timeSinceStarted + Time.deltaTime*speed;

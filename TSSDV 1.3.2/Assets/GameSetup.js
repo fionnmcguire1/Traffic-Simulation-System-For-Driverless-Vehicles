@@ -13,9 +13,12 @@
  //On windows the path is 
  //var text = System.IO.File.ReadAllText("C:/Users/Fionn Mcguire/Documents/GitHub/Traffic-Simulation-System-For-Driverless-Vehicles/TSSDV 1.3.2/Assets/Resources/TrafficSignals.csv");
  //Assuming you create your cloned github repos in the suggested folder /Documents/Github/
- var text = System.IO.File.ReadAllText("/Users/Shared/Unity/TSSDV 1.3.2/Assets/Resources/TrafficSignals.csv");
+ var text = System.IO.File.ReadAllText("/Users/FionnMcguire/College/Traffic-Simulation-System-For-Driverless-Vehicles/TSSDV 1.3.2/Assets/Resources/PythonTrafficSignals.txt");
  //var text = System.IO.File.ReadAllText(Resources.Load("TrafficSignals.csv"));
+ //This needs to be reset otherwise it takes values from the cached text value which is the previous file which was loaded in, in an earlier version
+ text = System.IO.File.ReadAllText("/Users/FionnMcguire/College/Traffic-Simulation-System-For-Driverless-Vehicles/TSSDV 1.3.2/Assets/Resources/PythonTrafficSignals.txt");
 
+ //Debug.Log(text);
   var j = 0;
   var k = 0;
   var limit = 50;
@@ -34,30 +37,51 @@
   }
     while(j < text.Length)
     {
-    	if(text[j] == '-' || text[j] == '.' || text[j] == ' ' || text[j] == '0' || text[j] == '1' || text[j] == '2' || text[j] == '3' || 
-    	text[j] == '4' || text[j] == '5' || text[j] == '6' || text[j] == '7' || text[j] == '8' || text[j] == '9')
-    	{
+    	//if(text[j] == '-' || text[j] == '.' || text[j] == ' ' || text[j] == '0' || text[j] == '1' || text[j] == '2' || text[j] == '3' || 
+    	//text[j] == '4' || text[j] == '5' || text[j] == '6' || text[j] == '7' || text[j] == '8' || text[j] == '9')
+    	//{
     		if(text[j] == " ")
     		{
-    			TrafficLightLatArr.Push(co_ord);
-    			//Debug.Log(co_ord);
-	        	co_ord = "";
+    			if(k%2 == 0)
+    			{
+	    			//TrafficLightLatArr.Push(co_ord);
+	    			//co_ord = float.Parse(co_ord);
+	    			//co_ord = co_ord*-1;
+	    			GlobalVariables.xList.Push(((float.Parse(co_ord)*-1))+0.0382186);
+	    			//Debug.Log(co_ord);
+	    			//co_ord = co_ord.ToString();
+		        	co_ord = "";
+		        	k = k+1;
+	        	}
+	        	else
+	        	{
+	        		//co_ord = float.Parse(co_ord);
+	    			//co_ord = co_ord*-1;
+	        		//TrafficLightLongArr.Push(co_ord);
+					GlobalVariables.zList.Push((float.Parse(co_ord)));
+	    			//Debug.Log(co_ord);
+	    			//co_ord = co_ord.ToString();
+		        	co_ord = "";
+		        	k = k+1;
+	        	}
 
     		}
-    		if(text[j] == "-" && co_ord.Length > 1)
+    		/*if(text[j] == "-" && co_ord.Length > 1)
     		{
     			TrafficLightLongArr.Push(co_ord);
     			//Debug.Log(co_ord);
 	        	co_ord = "";
 
-    		}
+    		}*/
 
 	    	co_ord = co_ord+text[j];	        
-        }
+        //}
         j = j+1;
     }
+    k=0;
     j = 0;
     TrafficLightLongArr.Push(co_ord);
+
 /////Filtering the arrays into lat/long within the map and converting those
 /////lat/long into x/z coordinates and plushing them to an array///////////
 var Xdifference = 4.063;
@@ -79,7 +103,7 @@ var LongToBeConverted : float;
 var zCo : float;
 var xCo : float;
 
-while(j<TrafficLightLatArr.length)
+/*while(j<TrafficLightLatArr.length)
 {
 	
 	latitude = float.Parse(TrafficLightLatArr[j]);
@@ -125,13 +149,13 @@ while(j<TrafficLightLatArr.length)
 
 
 	j = j+1;
-}
+}*/
 
  function Start () {
 
 	  //Imports all the sprites in the folder Car_Types in Resources
       var imports : Object[] = Resources.LoadAll("Car_Types/" , Sprite);
-
+      Debug.Log(GlobalVariables.xList.length);
       //Adjusting the array size
       AllSprites = new Sprite[imports.Length];
 
@@ -153,7 +177,7 @@ while(j<TrafficLightLatArr.length)
 
  public static function CreateGameObjectFromPrefab(index)
       {
-      	//Debug.Log("xList: "+xList.length);
+      	Debug.Log("xList: "+GlobalVariables.zList.length);
       	//Debug.Log("zList: "+zList.length);
       	var car : GameObject;
       	Cars = GameObject.Find("Car");;

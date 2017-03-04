@@ -81,6 +81,7 @@
      <Compile Include="Assets\UnitySlippyMap\Map\TileDownloaderBehaviour.cs" />
      <Compile Include="Assets\UnitySlippyMap\Markers\LocationMarkerBehaviour.cs" />
      <Compile Include="Assets\UnitySlippyMap\Markers\MarkerBehaviour.cs" />
+     <None Include="Assets\Resources\PythonTrafficSignals.txt" />
      <None Include="Assets\UnitySlippyMap\Dll\ProjNet.1.2\ProjNet.xml" />
      <None Include="Assets\Resources\Lecture1Notes.txt" />
      <None Include="Assets\UnitySlippyMap\Resources\Shaders\SomianUnlitTransparent.shader" />
