@@ -84,9 +84,16 @@
      <None Include="Assets\Resources\PythonTrafficSignals.txt" />
      <None Include="Assets\UnitySlippyMap\Dll\ProjNet.1.2\ProjNet.xml" />
      <None Include="Assets\Resources\Lecture1Notes.txt" />
+     <None Include="Assets\Resources\UnityRouteList.txt" />
+     <None Include="Assets\Resources\UnityRouteList1.txt" />
      <None Include="Assets\UnitySlippyMap\Resources\Shaders\SomianUnlitTransparent.shader" />
+     <None Include="Assets\Resources\PythonRouteList.txt" />
+     <None Include="Assets\Resources\PythonRouteList_1.txt" />
      <None Include="Assets\UnitySlippyMap\Resources\SRID.txt" />
      <None Include="Assets\UnitySlippyMap\Resources\Shaders\LarkuUnlitTransparent.shader" />
+     <None Include="Assets\Resources\UnityRouteList copy.txt" />
+     <None Include="Assets\Resources\CollisionReport.txt" />
+     <None Include="Assets\Resources\PythonRouteList_.txt" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

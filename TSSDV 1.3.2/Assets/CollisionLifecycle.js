@@ -1,5 +1,5 @@
 ﻿#pragma strict
-
+/*
 
 public var startTime : float;
 
@@ -13,7 +13,7 @@ function Start () {
 function Update () {
 	var difference : float;
 	difference = Time.time - startTime;
-	var limit = 5f;
+	var limit = 10f;
 	if(difference >= limit && transform.name != "CollisionArea")
 	{
 		var currentNode : Vector3;
